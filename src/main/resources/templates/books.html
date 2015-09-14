@@ -65,6 +65,7 @@
 					<td><strong>Author</strong></td>
 					<td><strong>Price</strong></td>
 					<td></td>
+					<td></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -75,10 +76,17 @@
 					<td th:text="${book.author}"></td>
 					<td th:text="${book.price}"></td>
 					<td>
-						<form method="get"
-							th:action="@{${'/books/' + book.isbn }}">
+						<form method="get" th:action="@{${'/books/' + book.isbn }}">
 							<button type="submit" class="btn btn-block btn-sm btn-info">
 								<i class='glyphicon glyphicon-pencil' th:text="修訂價格"></i>
+							</button>
+						</form>
+					</td>
+					<td>
+						<form method="post" th:action="@{${'/books/' + book.isbn }}">
+							<input type="hidden" name="_method" value="DELETE" />
+							<button type="submit" class="btn btn-block btn-sm btn-danger">
+								<i class='glyphicon glyphicon-trash' th:text="刪除"></i>
 							</button>
 						</form>
 					</td>

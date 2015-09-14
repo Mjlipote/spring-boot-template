@@ -99,6 +99,14 @@ public class MainController {
     return "redirect:/books";
   }
 
+  @RequestMapping(value = "/{isbn}", method = RequestMethod.DELETE)
+  public String edit(ModelMap map, @PathVariable("isbn") String isbn) {
+
+    bookRepo.delete(bookRepo.findByIsbn(isbn));
+
+    return "redirect:/books";
+  }
+
   @RequestMapping("/hello")
   @ResponseBody
   public String hello() {
