@@ -23,6 +23,7 @@ package tw.edu.ym.lab525.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,6 +78,25 @@ public class MainController {
 
       return "redirect:/books";
     }
+  }
+
+  @RequestMapping(value = "/{isbn}", method = RequestMethod.GET)
+  public String update(ModelMap map, @PathVariable("isbn") String isbn) {
+
+    map.addAttribute("books", bookRepo.findByIsbn(isbn));
+
+    return "book-info";
+  }
+
+  @RequestMapping(value = "/{isbn}", method = RequestMethod.PUT)
+  public String edit(ModelMap map, @PathVariable("isbn") String isbn,
+      @RequestParam(value = "price") Integer price) {
+
+    Book book = bookRepo.findByIsbn(isbn);
+    book.setPrice(price);
+    bookRepo.saveAndFlush(book);
+
+    return "redirect:/books";
   }
 
   @RequestMapping("/hello")

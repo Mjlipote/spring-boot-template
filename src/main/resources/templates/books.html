@@ -11,8 +11,7 @@
 	<h1 class="text-center">Book List</h1>
 
 	<div class="container col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<form
-			class=" col-lg-10 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12"
+		<form class=" col-lg-10 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12"
 			method="get" th:action="@{/books/lookup}" role="form">
 
 			<div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-8">
@@ -26,8 +25,7 @@
 			</div>
 		</form>
 
-		<form
-			class=" col-lg-10 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12"
+		<form class=" col-lg-10 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12"
 			method="post" th:action="@{/books}" role="form">
 
 			<div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -61,11 +59,12 @@
 			class="table table-responsive table-bordered table-striped table-condensed table-hover">
 			<thead>
 				<tr>
-					<td>#</td>
+					<td>##</td>
 					<td><strong>Name</strong></td>
 					<td><strong>ISBN</strong></td>
 					<td><strong>Author</strong></td>
 					<td><strong>Price</strong></td>
+					<td></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -75,6 +74,14 @@
 					<td th:text="${book.isbn}"></td>
 					<td th:text="${book.author}"></td>
 					<td th:text="${book.price}"></td>
+					<td>
+						<form method="get"
+							th:action="@{${'/books/' + book.isbn }}">
+							<button type="submit" class="btn btn-block btn-sm btn-info">
+								<i class='glyphicon glyphicon-pencil' th:text="修訂價格"></i>
+							</button>
+						</form>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -83,9 +90,10 @@
 	<div th:unless="${books}"
 		class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">Book
 		not found.</div>
-		
-		  <h2 th:if="${errorMessage}"
-    class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${errorMessage}"></h2>
+
+	<h2 th:if="${errorMessage}"
+		class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12"
+		th:text="${errorMessage}"></h2>
 
 </body>
 </html>
