@@ -25,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tw.edu.ym.lab525.repository.BookRepository;
@@ -39,6 +40,14 @@ public class MainController {
   @RequestMapping(value = "", method = RequestMethod.GET)
   public String view(ModelMap map) {
     map.addAttribute("books", bookRepo.findAll());
+
+    return "books";
+  }
+
+  @RequestMapping(value = "/lookup", method = RequestMethod.GET)
+  public String lookup(ModelMap map,
+      @RequestParam(value = "isbn") String isbn) {
+    map.addAttribute("books", bookRepo.findByIsbn(isbn));
 
     return "books";
   }
