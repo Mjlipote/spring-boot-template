@@ -7,8 +7,16 @@
 </head>
 <body>
 
-		<h1>Book List</h1>
-		<span th:text="${books}"></span>
+<h1>Book List</h1>
+	<div th:if="${books}">
+		<div th:each="book : ${books}">
+			Book Name: <span th:text="${book.name}"></span> <br></br>
+			Book ISBN: <span th:text="${book.isbn}"></span> <br></br>
+			Book Author: <span th:text="${book.author}"></span> <br></br>
+			Book Price: <span	th:text="${book.price}"></span> <br></br>
+		</div>
+	</div>
+	<div th:unless="${books}">Book not found.</div>
 
 </body>
 </html>

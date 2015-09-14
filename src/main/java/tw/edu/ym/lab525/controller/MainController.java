@@ -20,19 +20,25 @@
  */
 package tw.edu.ym.lab525.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import tw.edu.ym.lab525.repository.BookRepository;
+
 @RequestMapping("/books")
 @Controller
 public class MainController {
 
+  @Autowired
+  BookRepository bookRepo;
+
   @RequestMapping(value = "", method = RequestMethod.GET)
   public String view(ModelMap map) {
-    map.addAttribute("books", "All books are here.");
+    map.addAttribute("books", bookRepo.findAll());
 
     return "books";
   }
