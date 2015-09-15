@@ -81,7 +81,7 @@ public class MainController {
   }
 
   @RequestMapping(value = "/{isbn}", method = RequestMethod.GET)
-  public String update(ModelMap map, @PathVariable("isbn") String isbn) {
+  public String read(ModelMap map, @PathVariable("isbn") String isbn) {
 
     map.addAttribute("books", bookRepo.findByIsbn(isbn));
 
@@ -89,7 +89,7 @@ public class MainController {
   }
 
   @RequestMapping(value = "/{isbn}", method = RequestMethod.PUT)
-  public String edit(ModelMap map, @PathVariable("isbn") String isbn,
+  public String update(ModelMap map, @PathVariable("isbn") String isbn,
       @RequestParam(value = "price") Integer price) {
 
     Book book = bookRepo.findByIsbn(isbn);
