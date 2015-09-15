@@ -100,7 +100,7 @@ public class MainController {
   }
 
   @RequestMapping(value = "/{isbn}", method = RequestMethod.DELETE)
-  public String edit(ModelMap map, @PathVariable("isbn") String isbn) {
+  public String delete(ModelMap map, @PathVariable("isbn") String isbn) {
 
     bookRepo.delete(bookRepo.findByIsbn(isbn));
 
