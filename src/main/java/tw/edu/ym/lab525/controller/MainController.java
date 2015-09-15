@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tw.edu.ym.lab525.entity.Book;
 import tw.edu.ym.lab525.repository.BookRepository;
+import tw.edu.ym.lab525.service.MainService;
 
 @RequestMapping("/books")
 @Controller
@@ -39,20 +39,25 @@ public class MainController {
   @Autowired
   BookRepository bookRepo;
 
+  @Autowired
+  MainService mainService;
+
   @RequestMapping(value = "", method = RequestMethod.GET)
   public String view(ModelMap map) {
-    map.addAttribute("books", bookRepo.findAll());
-
+    map.addAttribute("books", mainService.view());
     return "books";
   }
 
   @RequestMapping(value = "/lookup", method = RequestMethod.GET)
   public String lookup(ModelMap map,
       @RequestParam(value = "isbn") String isbn) {
-    map.addAttribute("books",
-        isbn.equals("") ? bookRepo.findAll() : bookRepo.findByIsbn(isbn));
-
-    return "books";
+    if (bookRepo.findByIsbn(isbn) == null) {
+      map.addAttribute("errorMessage", "找不到這本書");
+      return "books";
+    } else {
+      map.addAttribute("books", mainService.lookup(isbn));
+      return "books";
+    }
   }
 
   @RequestMapping(value = "", method = RequestMethod.POST)
@@ -69,13 +74,7 @@ public class MainController {
       map.addAttribute("errorMessage", "ISBN 重複");
       return "books";
     } else {
-      Book book = new Book();
-      book.setName(name);
-      book.setIsbn(isbn);
-      book.setAuthor(author);
-      book.setPrice(price);
-      bookRepo.save(book);
-
+      mainService.create(name, isbn, author, price);
       return "redirect:/books";
     }
   }
@@ -83,7 +82,7 @@ public class MainController {
   @RequestMapping(value = "/{isbn}", method = RequestMethod.GET)
   public String read(ModelMap map, @PathVariable("isbn") String isbn) {
 
-    map.addAttribute("books", bookRepo.findByIsbn(isbn));
+    map.addAttribute("books", mainService.read(isbn));
 
     return "book-info";
   }
@@ -91,19 +90,13 @@ public class MainController {
   @RequestMapping(value = "/{isbn}", method = RequestMethod.PUT)
   public String update(ModelMap map, @PathVariable("isbn") String isbn,
       @RequestParam(value = "price") Integer price) {
-
-    Book book = bookRepo.findByIsbn(isbn);
-    book.setPrice(price);
-    bookRepo.saveAndFlush(book);
-
+    mainService.update(isbn, price);
     return "redirect:/books";
   }
 
   @RequestMapping(value = "/{isbn}", method = RequestMethod.DELETE)
   public String delete(ModelMap map, @PathVariable("isbn") String isbn) {
-
-    bookRepo.delete(bookRepo.findByIsbn(isbn));
-
+    mainService.delete(isbn);
     return "redirect:/books";
   }
 
