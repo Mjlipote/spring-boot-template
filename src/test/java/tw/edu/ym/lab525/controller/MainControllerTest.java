@@ -50,11 +50,11 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import tw.edu.ym.lab525.Application;
+import tw.edu.ym.lab525.ApplicationTest;
 import tw.edu.ym.lab525.repository.BookRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = ApplicationTest.class)
 @WebIntegrationTest
 public class MainControllerTest {
 
