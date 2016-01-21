@@ -50,11 +50,11 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import tw.edu.ym.lab525.ApplicationTest;
+import tw.edu.ym.lab525.Application;
 import tw.edu.ym.lab525.repository.BookRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ApplicationTest.class)
+@SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest
 public class MainControllerTest {
 
@@ -67,14 +67,14 @@ public class MainControllerTest {
   @Test
   public void testHelloPage() {
     ResponseEntity<String> res = restTemplate
-        .getForEntity("http://localhost:8080/books/hello", String.class);
+        .getForEntity("http://localhost:8081/books/hello", String.class);
     assertEquals("Hello!!!", res.getBody());
   }
 
   @Test
   public void testView() {
     ResponseEntity<String> res =
-        restTemplate.getForEntity("http://localhost:8080/books", String.class);
+        restTemplate.getForEntity("http://localhost:8081/books", String.class);
     Document doc = Jsoup.parse(res.getBody());
     assertEquals("密碼學之旅與MATHEMATICA同行",
         doc.getElementsByTag("td").get(8).text());
@@ -86,7 +86,7 @@ public class MainControllerTest {
   @Test
   public void testRead() {
     ResponseEntity<String> res = restTemplate.getForEntity(
-        "http://localhost:8080/books/957-21-5210-6", String.class);
+        "http://localhost:8081/books/957-21-5210-6", String.class);
     Document doc = Jsoup.parse(res.getBody());
     assertEquals("密碼學之旅與MATHEMATICA同行",
         doc.getElementsByTag("input").get(0).val());
@@ -99,7 +99,7 @@ public class MainControllerTest {
   @Test
   public void testDelete() throws JsonProcessingException, URISyntaxException {
 
-    restTemplate.exchange(new URI("http://localhost:8080/books/957-21-5210-6"),
+    restTemplate.exchange(new URI("http://localhost:8081/books/957-21-5210-6"),
         HttpMethod.DELETE, null, String.class);
 
     assertTrue(bookRepo.findByIsbn("957-21-5210-6") == null);
@@ -125,7 +125,7 @@ public class MainControllerTest {
         new HttpEntity<MultiValueMap<String, Object>>(map, requestHeaders);
     restTemplate.getMessageConverters().add(0,
         new StringHttpMessageConverter(Charset.forName("UTF-8")));
-    restTemplate.exchange(new URI("http://localhost:8080/books"),
+    restTemplate.exchange(new URI("http://localhost:8081/books"),
         HttpMethod.POST, requestEntity, String.class);
 
     assertTrue(bookRepo.findByIsbn("957-21-5210-8") != null);
