@@ -37,12 +37,14 @@ public class SetupController {
   @PostConstruct
   void postProcessData() {
 
-    Book book = new Book();
-    book.setName("密碼學之旅與MATHEMATICA同行");
-    book.setIsbn("957-21-5210-6");
-    book.setAuthor("沈淵源");
-    book.setPrice(400);
-    bookRepo.save(book);
+    if (bookRepo.findByIsbn("957-21-5210-6") == null) {
+      Book book = new Book();
+      book.setName("密碼學之旅與MATHEMATICA同行");
+      book.setIsbn("957-21-5210-6");
+      book.setAuthor("沈淵源");
+      book.setPrice(400);
+      bookRepo.save(book);
+    }
   }
 
 }

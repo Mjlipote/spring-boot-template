@@ -61,6 +61,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<heroku.appName>secure-anchorage-52168</heroku.appName>
 	</properties>
 
 	<build>
@@ -77,8 +78,7 @@
 					<appName>${heroku.appName}</appName>
 					<jdkVersion>1.8</jdkVersion>
 					<processTypes>
-						<web>java -Dserver.port=$PORT -jar
-							target/spring-boot-template-${project.version}.jar</web>
+						<web>java -Dserver.port=$PORT -jar target/spring-boot-template-${project.version}.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>
