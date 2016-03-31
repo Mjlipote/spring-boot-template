@@ -20,6 +20,7 @@
  */
 package tw.edu.ym.lab525.repository;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,5 +39,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
   public Set<Book> findByAuthor(String author);
 
   public Set<Book> findByPrice(String price);
+
+  public List<Book> PriceBetween(Integer priceStart, Integer priceEnd);
 
 }
