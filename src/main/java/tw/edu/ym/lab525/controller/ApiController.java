@@ -1,8 +1,5 @@
 /*
  *
- * @author Ming-Jheng Li
- *
- *
  * Copyright 2015 Ming-Jheng Li
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -18,27 +15,27 @@
  * the License.
  *
  */
-package tw.edu.ym.lab525.config;
+package tw.edu.ym.lab525.controller;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import tw.edu.ym.lab525.chart.DataTable;
 import tw.edu.ym.lab525.service.ApiService;
-import tw.edu.ym.lab525.service.ApiServiceImpl;
-import tw.edu.ym.lab525.service.MainService;
-import tw.edu.ym.lab525.service.MainServiceImpl;
 
-@Configuration
-public class ServicesConfig {
+@RequestMapping("/api")
+@RestController
+public class ApiController {
 
-  @Bean
-  public ApiService apiService() {
-    return new ApiServiceImpl();
-  }
+  @Autowired
+  ApiService apiService;
 
-  @Bean
-  public MainService mainService() {
-    return new MainServiceImpl();
+  @RequestMapping(value = "/line-chart-all-between", method = GET)
+  DataTable lineChartAllBetween() {
+    return apiService.lineChartAllBetween();
   }
 
 }
