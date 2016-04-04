@@ -1,10 +1,6 @@
-package tw.edu.ym.lab525.chart;
 /// *
 // *
-// * @author Ming-Jheng Li
-// *
-// *
-// * Copyright 2015 Ming-Jheng Li
+// * Copyright 2016 Ming-Jheng Li
 // *
 // * Licensed under the Apache License, Version 2.0 (the "License"); you may not
 // * use this file except in compliance with the License. You may obtain a copy
@@ -21,7 +17,7 @@ package tw.edu.ym.lab525.chart;
 // * the License.
 // *
 // */
-// package tw.guid.local.google.chart;
+// package tw.edu.ym.lab525.chart;
 //
 // import java.io.IOException;
 // import java.net.URISyntaxException;
@@ -44,6 +40,8 @@ package tw.edu.ym.lab525.chart;
 // dataTable.addRow("Work", 11);
 // dataTable.addRow("Eat", 2);
 // dataTable.addRow("Commute", 2);
+// dataTable.addRow("Watch TV", 2);
+// dataTable.addRow("Sleep", 7);
 //
 // System.out.println(dataTable.toJson());
 //
