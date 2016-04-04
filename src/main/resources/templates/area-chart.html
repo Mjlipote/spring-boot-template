@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>Area Chart</title>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	google.charts.load('current', {
+		'packages' : [ 'corechart' ]
+	});
+	google.charts.setOnLoadCallback(drawChart);
+
+	function drawChart() {
+		$.getJSON('/api/area-chart', function(res) {
+			var data = new google.visualization.DataTable(res, 0.6);
+
+			var options = {
+				title : 'area-chart',
+				hAxis : {
+					title : 'Author',
+					titleTextStyle : {
+						color : '#333'
+					}
+				},
+				vAxis : {
+					minValue : 0
+				}
+			};
+
+			var chart = new google.visualization.AreaChart(document
+					.getElementById('chart_div'));
+
+			chart.draw(data, options);
+		});
+	}
+</script>
+</head>
+<body>
+	<div id="chart_div" style="width: 1000px; height: 600px"></div>
+</body>
+</html>
