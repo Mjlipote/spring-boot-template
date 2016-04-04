@@ -15,11 +15,12 @@
 			var data = new google.visualization.DataTable(res, 0.6);
 
 			var options = {
-				title : 'Line Chart',
-				curveType : 'function',
-				legend : {
-					position : 'bottom'
-				}
+				 chart: {
+			          title: 'Google Chart',
+			          subtitle: 'Line Chart'
+			        },
+			        width: 900,
+			        height: 500
 			};
 
 			var chart = new google.visualization.LineChart(document
