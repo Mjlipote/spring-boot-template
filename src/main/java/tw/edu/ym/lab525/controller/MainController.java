@@ -20,6 +20,8 @@
  */
 package tw.edu.ym.lab525.controller;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -104,6 +106,26 @@ public class MainController {
   @ResponseBody
   public String hello() {
     return "Hello!!!";
+  }
+
+  @RequestMapping(value = "/area-chart", method = GET)
+  String AreaChart() {
+    return "area-chart";
+  }
+
+  @RequestMapping(value = "/bar-chart", method = GET)
+  String BarChart() {
+    return "bar-chart";
+  }
+
+  @RequestMapping(value = "/line-chart", method = GET)
+  String lineChart() {
+    return "line-chart";
+  }
+
+  @RequestMapping(value = "/pie-chart", method = GET)
+  String PieChart() {
+    return "pie-chart";
   }
 
 }
