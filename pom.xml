@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.3.3.RELEASE</version>
+		<version>1.3.2.RELEASE</version>
 	</parent>
 
 	<dependencies>
@@ -52,7 +52,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>18.0</version>
+			<version>19.0</version>
 		</dependency>
 
 		<!-- Testing -->
@@ -71,7 +71,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<heroku.appName>secure-anchorage-52168</heroku.appName>
+		<heroku.appName>spring-boot-template-001</heroku.appName>
 	</properties>
 
 	<build>
