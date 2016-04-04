@@ -17,11 +17,17 @@
  */
 package tw.edu.ym.lab525.service;
 
+import static com.google.common.collect.Sets.newHashSet;
+
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import tw.edu.ym.lab525.chart.ColumnDescription;
 import tw.edu.ym.lab525.chart.DataTable;
 import tw.edu.ym.lab525.chart.Type;
+import tw.edu.ym.lab525.chart.Value;
+import tw.edu.ym.lab525.entity.Book;
 import tw.edu.ym.lab525.repository.BookRepository;
 
 public class ApiServiceImpl implements ApiService {
@@ -30,18 +36,59 @@ public class ApiServiceImpl implements ApiService {
   private BookRepository bookRepo;
 
   @Override
-  public DataTable lineChartAllBetween() {
+  public DataTable ChartDataTable() {
+    DataTable dataTable = new DataTable();
+    dataTable.addColumn(new ColumnDescription("price", "Price", Type.STRING));
+    dataTable.addRow("0~500");
+    dataTable.addRow("500~1000");
+    dataTable.addRow("1000+");
+    Set<String> authors = newHashSet();
+    for (Book book : bookRepo.findAll()) {
+      authors.add(book.getAuthor());
+    }
+    for (String author : authors) {
+      dataTable.addColumn(new ColumnDescription("author", author, Type.NUMBER));
+      dataTable.getCells(0).add(new Value<Integer>(
+          bookRepo.findByAuthorAndPriceBetween(author, 0, 500).size()));
+      dataTable.getCells(1).add(new Value<Integer>(
+          bookRepo.findByAuthorAndPriceBetween(author, 500, 1000).size()));
+      dataTable.getCells(2)
+          .add(new Value<Integer>(bookRepo.findByAuthor(author).size()
+              - bookRepo.findByAuthorAndPriceBetween(author, 0, 500).size()));
+    }
+    return dataTable;
+  }
 
+  @Override
+  public DataTable ChartDataTableAll() {
     DataTable dataTable = new DataTable();
     dataTable.addColumn(new ColumnDescription("price", "Price", Type.STRING))
         .addColumn(new ColumnDescription("number", "Number", Type.NUMBER));
-
     dataTable.addRow("0~500", bookRepo.PriceBetween(0, 500).size());
     dataTable.addRow("500~1000", bookRepo.PriceBetween(500, 1000).size());
     dataTable.addRow("1000+",
         bookRepo.findAll().size() - bookRepo.PriceBetween(0, 1000).size());
-
     return dataTable;
+  }
+
+  @Override
+  public DataTable PieChart() {
+    return ChartDataTableAll();
+  }
+
+  @Override
+  public DataTable AreaChart() {
+    return ChartDataTable();
+  }
+
+  @Override
+  public DataTable BarChart() {
+    return ChartDataTable();
+  }
+
+  @Override
+  public DataTable LineChart() {
+    return ChartDataTable();
   }
 
 }

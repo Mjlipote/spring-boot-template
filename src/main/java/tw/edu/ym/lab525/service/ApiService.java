@@ -21,6 +21,16 @@ import tw.edu.ym.lab525.chart.DataTable;
 
 public interface ApiService {
 
-  public DataTable lineChartAllBetween();
+  public DataTable ChartDataTable();
+
+  public DataTable ChartDataTableAll();
+
+  public DataTable AreaChart();
+
+  public DataTable PieChart();
+
+  public DataTable BarChart();
+
+  public DataTable LineChart();
 
 }

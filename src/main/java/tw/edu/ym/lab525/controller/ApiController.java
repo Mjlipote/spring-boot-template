@@ -33,9 +33,24 @@ public class ApiController {
   @Autowired
   ApiService apiService;
 
-  @RequestMapping(value = "/line-chart-all-between", method = GET)
-  DataTable lineChartAllBetween() {
-    return apiService.lineChartAllBetween();
+  @RequestMapping(value = "/area-chart", method = GET)
+  DataTable AreaChart() {
+    return apiService.AreaChart();
+  }
+
+  @RequestMapping(value = "/pie-chart", method = GET)
+  DataTable PieChart() {
+    return apiService.PieChart();
+  }
+
+  @RequestMapping(value = "/bar-chart", method = GET)
+  DataTable BarChart() {
+    return apiService.BarChart();
+  }
+
+  @RequestMapping(value = "/line-chart", method = GET)
+  DataTable lineChart() {
+    return apiService.LineChart();
   }
 
 }
