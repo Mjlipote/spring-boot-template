@@ -42,4 +42,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
   public List<Book> PriceBetween(Integer priceStart, Integer priceEnd);
 
+  public List<Book> findByAuthorAndPriceBetween(String author,
+      Integer priceStart, Integer priceEnd);
+
 }
