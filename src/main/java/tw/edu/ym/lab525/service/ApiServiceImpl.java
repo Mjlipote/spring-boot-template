@@ -54,7 +54,7 @@ public class ApiServiceImpl implements ApiService {
           bookRepo.findByAuthorAndPriceBetween(author, 500, 1000).size()));
       dataTable.getCells(2)
           .add(new Value<Integer>(bookRepo.findByAuthor(author).size()
-              - bookRepo.findByAuthorAndPriceBetween(author, 0, 500).size()));
+              - bookRepo.findByAuthorAndPriceBetween(author, 0, 1000).size()));
     }
     return dataTable;
   }
